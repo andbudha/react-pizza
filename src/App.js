@@ -2,21 +2,7 @@ import './App.css';
 import './scss/app.scss';
 import './scss/_variables.scss';
 import { Header } from './components/Header/Header';
-
-export const Categories = (props) => {
-  return (
-    <div class="categories">
-      <ul>
-        <li class="active">Все</li>
-        <li>Мясные</li>
-        <li>Вегетарианская</li>
-        <li>Гриль</li>
-        <li>Острые</li>
-        <li>Закрытые</li>
-      </ul>
-    </div>
-  );
-};
+import { Categories } from './components/Categories/Categories';
 
 export const Sort = (props) => {
   return (
