@@ -1,26 +1,38 @@
-export const PizzaCard = ({ pizzaname }) => {
+// @flow
+import * as React from 'react';
+import { useState } from 'react';
+
+export const PizzaCard = ({ pizzaname, price }) => {
+  const [counterValue, setCounterValue] = useState(0);
+
+  const increaseCounterHandler = () => {
+    setCounterValue(counterValue + 1);
+  };
   return (
-    <div class="pizza-block">
+    <div className="pizza-block">
       <img
-        class="pizza-block__image"
+        className="pizza-block__image"
         src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
         alt="Pizza"
       />
-      <h4 class="pizza-block__title">{pizzaname}</h4>
-      <div class="pizza-block__selector">
+      <h4 className="pizza-block__title">{pizzaname}</h4>
+      <div className="pizza-block__selector">
         <ul>
-          <li class="active">тонкое</li>
-          <li>традиционное</li>
+          <li className="active">thin-crust</li>
+          <li>thick-crust</li>
         </ul>
         <ul>
-          <li class="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          <li className="active">26 cm.</li>
+          <li>30 cm.</li>
+          {/* <li>40 cm.</li> */}
         </ul>
       </div>
-      <div class="pizza-block__bottom">
-        <div class="pizza-block__price">от 395 ₽</div>
-        <div class="button button--outline button--add">
+      <div className="pizza-block__bottom">
+        <div className="pizza-block__price">{price}€</div>
+        <div
+          className="button button--outline button--add"
+          onClick={increaseCounterHandler}
+        >
           <svg
             width="12"
             height="12"
@@ -33,8 +45,8 @@ export const PizzaCard = ({ pizzaname }) => {
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
-          <i>2</i>
+          <span>add</span>
+          <i>{counterValue}</i>
         </div>
       </div>
     </div>
