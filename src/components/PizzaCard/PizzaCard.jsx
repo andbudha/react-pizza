@@ -5,12 +5,7 @@ export const PizzaCard = ({ pizzaname, price, pizzaImage, types, sizes }) => {
   const pizzaType = ['thin-crust', 'hick-crust'];
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(26);
-  const setActiveTypeHandler = (type) => {
-    setActiveType(type);
-  };
-  const setActiveSizeHandler = (size) => {
-    setActiveSize(size);
-  };
+
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
@@ -21,7 +16,7 @@ export const PizzaCard = ({ pizzaname, price, pizzaImage, types, sizes }) => {
             return (
               <li
                 key={type}
-                onClick={() => setActiveTypeHandler(type)}
+                onClick={() => setActiveType(type)}
                 className={activeType === type ? 'active' : ''}
               >
                 {pizzaType[type]}
@@ -34,7 +29,7 @@ export const PizzaCard = ({ pizzaname, price, pizzaImage, types, sizes }) => {
             return (
               <li
                 key={size}
-                onClick={() => setActiveSizeHandler(size)}
+                onClick={() => setActiveSize(size)}
                 className={activeSize === size ? 'active' : ''}
               >
                 {size} cm.
