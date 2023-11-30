@@ -1,37 +1,51 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-export const PizzaCard = ({ pizzaname, price }) => {
-  const [counterValue, setCounterValue] = useState(0);
-
-  const increaseCounterHandler = () => {
-    setCounterValue(counterValue + 1);
+export const PizzaCard = ({ pizzaname, price, pizzaImage, types, sizes }) => {
+  const pizzaType = ['thin-crust', 'hick-crust'];
+  const [activeType, setActiveType] = useState(0);
+  const [activeSize, setActiveSize] = useState(26);
+  const setActiveTypeHandler = (type) => {
+    setActiveType(type);
+  };
+  const setActiveSizeHandler = (size) => {
+    setActiveSize(size);
   };
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
       <h4 className="pizza-block__title">{pizzaname}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">thin-crust</li>
-          <li>thick-crust</li>
+          {types.map((type) => {
+            return (
+              <li
+                key={type}
+                onClick={() => setActiveTypeHandler(type)}
+                className={activeType === type ? 'active' : ''}
+              >
+                {pizzaType[type]}
+              </li>
+            );
+          })}
         </ul>
         <ul>
-          <li className="active">26 cm.</li>
-          <li>30 cm.</li>
-          {/* <li>40 cm.</li> */}
+          {sizes.map((size) => {
+            return (
+              <li
+                key={size}
+                onClick={() => setActiveSizeHandler(size)}
+                className={activeSize === size ? 'active' : ''}
+              >
+                {size} cm.
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{price}€</div>
-        <div
-          className="button button--outline button--add"
-          onClick={increaseCounterHandler}
-        >
+        <div className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -45,7 +59,7 @@ export const PizzaCard = ({ pizzaname, price }) => {
             />
           </svg>
           <span>add</span>
-          <i>{counterValue}</i>
+          <i>0</i>
         </div>
       </div>
     </div>

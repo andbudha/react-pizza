@@ -5,8 +5,21 @@ import { Header } from './components/Header/Header';
 import { Categories } from './components/Categories/Categories';
 import { Sort } from './components/Sort/Sort';
 import { PizzaCard } from './components/PizzaCard/PizzaCard';
+import pizzas from './assets/pizzas/pizzas.json';
 
 function App() {
+  const pizzaList = pizzas.map((pizza) => {
+    return (
+      <PizzaCard
+        key={pizza.id}
+        pizzaname={pizza.name}
+        pizzaImage={pizza.imageUrl}
+        price={pizza.price}
+        sizes={pizza.sizes}
+        types={pizza.types}
+      />
+    );
+  });
   return (
     <div className="App">
       <div className="wrapper">
@@ -18,11 +31,7 @@ function App() {
               <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              <PizzaCard pizzaname={'Margherita'} price={12} />
-              <PizzaCard pizzaname={'Neapolitan'} price={12} />
-              <PizzaCard pizzaname={'Sicilian'} price={12} />
-            </div>
+            <div className="content__items">{pizzaList}</div>
           </div>
         </div>
       </div>
