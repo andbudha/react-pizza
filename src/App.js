@@ -4,10 +4,23 @@ import './scss/_variables.scss';
 import { Header } from './components/Header/Header';
 import { Categories } from './components/Categories/Categories';
 import { Sort } from './components/Sort/Sort';
+import { useEffect, useState } from 'react';
 import { PizzaCard } from './components/PizzaCard/PizzaCard';
-import pizzas from './assets/pizzas/pizzas.json';
 
 function App() {
+  const [pizzas, setPizzas] = useState([]);
+
+  useEffect(() => {
+    fetch('https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setPizzas(data);
+        return data;
+      });
+  }, []);
+
   const pizzaList = pizzas.map((pizza) => {
     return (
       <PizzaCard
@@ -20,6 +33,7 @@ function App() {
       />
     );
   });
+
   return (
     <div className="App">
       <div className="wrapper">
