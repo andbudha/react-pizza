@@ -10,16 +10,20 @@ import { PizzaSkeleton } from './components/Skeletons/PizzaSkeleton';
 
 function App() {
   const [pizzas, setPizzas] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch('https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items')
       .then((res) => res.json())
-      .then((data) => setPizzas(data));
+      .then((data) => {
+        setPizzas(data);
+        setIsLoading(false);
+      });
   }, []);
 
   const pizzaList = pizzas.map((pizza) => {
     return (
-      <PizzaSkeleton
+      <PizzaCard
         key={pizza.id}
         pizzaname={pizza.name}
         pizzaImage={pizza.imageUrl}
@@ -41,7 +45,12 @@ function App() {
               <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">{pizzaList}</div>
+            <div className="content__items">
+              {' '}
+              {isLoading
+                ? [...new Array(6)].map((_, i) => <PizzaSkeleton key={i} />)
+                : pizzaList}
+            </div>
           </div>
         </div>
       </div>
