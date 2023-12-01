@@ -3,6 +3,8 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { PizzaCard } from '../../PizzaCard/PizzaCard';
 import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
+import { Categories } from '../../Categories/Categories';
+import { Sort } from '../../Sort/Sort';
 
 export const Home = (props) => {
   const [pizzas, setPizzas] = useState([]);
@@ -30,10 +32,19 @@ export const Home = (props) => {
     );
   });
   return (
-    <>
-      {isLoading
-        ? [...new Array(9)].map((_, i) => <PizzaSkeleton key={i} />)
-        : pizzaList}
-    </>
+    <div className="content">
+      <div className="container">
+        <div className="content__top">
+          <Categories />
+          <Sort />
+        </div>
+        <h2 className="content__title">Все пиццы</h2>
+        <div className="content__items">
+          {isLoading
+            ? [...new Array(9)].map((_, i) => <PizzaSkeleton key={i} />)
+            : pizzaList}
+        </div>
+      </div>
+    </div>
   );
 };
