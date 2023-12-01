@@ -32,18 +32,16 @@ export const Home = (props) => {
     );
   });
   return (
-    <div className="content">
-      <div className="container">
-        <div className="content__top">
-          <Categories />
-          <Sort />
-        </div>
-        <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">
-          {isLoading
-            ? [...new Array(9)].map((_, i) => <PizzaSkeleton key={i} />)
-            : pizzaList}
-        </div>
+    <div className="container">
+      <div className="content__top">
+        <Categories />
+        <Sort />
+      </div>
+      <h2 className="content__title">Все пиццы</h2>
+      <div className="content__items">
+        {isLoading
+          ? [...new Array(9)].map((_, i) => <PizzaSkeleton key={i} />)
+          : pizzaList}
       </div>
     </div>
   );
