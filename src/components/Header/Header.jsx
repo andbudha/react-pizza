@@ -8,9 +8,11 @@ export const Header = (props) => {
       <div className="container">
         <Link to="/">
           <div className="header__logo">
-            <img width="38" src={logo} alt="Pizza logo" />
             <div>
-              <h1>React Pizza</h1>
+              <div className="header_logo_title">
+                <img width="38" src={logo} alt="Pizza logo" />
+                <h1>React Pizza</h1>
+              </div>
               <p>самая вкусная пицца во вселенной</p>
             </div>
           </div>

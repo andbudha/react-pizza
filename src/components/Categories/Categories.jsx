@@ -1,14 +1,7 @@
 import * as React from 'react';
 
 export const Categories = () => {
-  const categories = [
-    'Все',
-    'Мясные',
-    'Вегетарианская',
-    'Гриль',
-    'Острые',
-    'Закрытые',
-  ];
+  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые'];
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   const setIndexHandler = (index) => {
