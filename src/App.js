@@ -5,6 +5,7 @@ import { Header } from './components/Header/Header';
 import { Home } from './components/pages/Home/Home';
 import { NotFound } from './components/pages/NotFound/NotFound';
 import { Route, Routes } from 'react-router-dom';
+import { Cart } from './components/pages/Cart/Cart';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
