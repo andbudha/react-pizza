@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 export const PizzaCard = ({ pizzaname, price, pizzaImage, types, sizes }) => {
-  const pizzaType = ['thin-crust', 'hick-crust'];
+  const pizzaType = ['thin-crust', 'thick-crust'];
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(26);
 
