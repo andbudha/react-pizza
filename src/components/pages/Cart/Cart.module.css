@@ -4,11 +4,17 @@
   box-sizing: border-box;
 }
 
-.not_found_box {
-  min-height: 500px;
-  min-width: 400px;
+.cart_items {
+  /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 30px;
+    justify-items: center; */
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
