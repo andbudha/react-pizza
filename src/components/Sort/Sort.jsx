@@ -1,7 +1,14 @@
 import * as React from 'react';
 export const Sort = ({ sortChoice, setSortChoice }) => {
   const [openSate, setOpenState] = React.useState(false);
-  const sortList = ['rating', 'price', 'name'];
+  const sortList = [
+    'rating asc',
+    'rating desc',
+    'price asc',
+    'price desc',
+    'name asc',
+    'name desc',
+  ];
 
   const setSortChoiceHandler = (choice) => {
     setSortChoice(choice);

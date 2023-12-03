@@ -11,14 +11,31 @@ export const Home = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sortChoice, setSortChoice] = React.useState('rating');
   const [activeIndex, setActiveIndex] = React.useState(0);
-  console.log(sortChoice);
 
+  const sort = () => {
+    if (sortChoice.includes(' asc')) {
+      return sortChoice.replace(' asc', '');
+    } else if (sortChoice.includes(' desc')) {
+      return sortChoice.replace(' desc', '');
+    }
+  };
+
+  const order = () => {
+    if (sortChoice.includes('asc')) {
+      return 'asc';
+    } else if (sortChoice.includes('desc')) {
+      return 'desc';
+    }
+  };
+  const finalSortChoice = sort();
+  const finalOrder = order();
+  console.log(finalSortChoice);
   useEffect(() => {
     setIsLoading(true);
     fetch(
       `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
         activeIndex > 0 ? `category=${activeIndex}` : ''
-      }&sortBy=${sortChoice}&order=asc`
+      }&sortBy=${finalSortChoice}&order=${finalOrder}`
     )
       .then((res) => res.json())
       .then((data) => {
