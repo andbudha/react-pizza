@@ -11,10 +11,14 @@ export const Home = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sortChoice, setSortChoice] = React.useState('rating');
   const [activeIndex, setActiveIndex] = React.useState(0);
+  console.log(sortChoice);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(
-      `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?sortBy=${sortChoice}`
+      `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
+        activeIndex > 0 ? `category=${activeIndex}` : ''
+      }&sortBy=${sortChoice}&order=asc`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -45,7 +49,7 @@ export const Home = (props) => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoading
-          ? [...new Array(9)].map((_, i) => <PizzaSkeleton key={i} />)
+          ? [...new Array(6)].map((_, i) => <PizzaSkeleton key={i} />)
           : pizzaList}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 export const Sort = ({ sortChoice, setSortChoice }) => {
   const [openSate, setOpenState] = React.useState(false);
-  const sortList = ['rating', 'price', 'category'];
+  const sortList = ['rating', 'price', 'name'];
 
   const setSortChoiceHandler = (choice) => {
     setSortChoice(choice);
@@ -22,7 +22,7 @@ export const Sort = ({ sortChoice, setSortChoice }) => {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Sort by:</b>
         <span onClick={() => setOpenState(!openSate)}>{sortChoice}</span>
       </div>
       {openSate && (
