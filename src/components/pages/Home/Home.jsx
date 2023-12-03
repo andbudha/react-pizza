@@ -6,7 +6,7 @@ import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
 import { Categories } from '../../Categories/Categories';
 import { Sort } from '../../Sort/Sort';
 
-export const Home = (props) => {
+export const Home = ({ searchValue }) => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortChoice, setSortChoice] = React.useState('rating');
@@ -29,13 +29,14 @@ export const Home = (props) => {
   };
   const finalSortChoice = sort();
   const finalOrder = order();
-  console.log(finalSortChoice);
+  const filter = searchValue.toLowerCase();
+
   useEffect(() => {
     setIsLoading(true);
     fetch(
       `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
         activeIndex > 0 ? `category=${activeIndex}` : ''
-      }&sortBy=${finalSortChoice}&order=${finalOrder}`
+      }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -43,7 +44,11 @@ export const Home = (props) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [sortChoice, activeIndex]);
+  }, [sortChoice, activeIndex, searchValue]);
+
+  const pizzaSkeletons = [...new Array(6)].map((_, i) => (
+    <PizzaSkeleton key={i} />
+  ));
 
   const pizzaList = pizzas.map((pizza) => {
     return (
@@ -65,9 +70,7 @@ export const Home = (props) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading
-          ? [...new Array(6)].map((_, i) => <PizzaSkeleton key={i} />)
-          : pizzaList}
+        {isLoading ? pizzaSkeletons : pizzaList}
       </div>
     </div>
   );
