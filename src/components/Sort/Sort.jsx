@@ -1,8 +1,7 @@
 import * as React from 'react';
-export const Sort = (props) => {
+export const Sort = ({ sortChoice, setSortChoice }) => {
   const [openSate, setOpenState] = React.useState(false);
-  const [sortChoice, setSortChoice] = React.useState('популярности');
-  const sortList = ['популярности', 'цене', 'алфавиту'];
+  const sortList = ['rating', 'price', 'category'];
 
   const setSortChoiceHandler = (choice) => {
     setSortChoice(choice);
