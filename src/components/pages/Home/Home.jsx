@@ -6,16 +6,18 @@ import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
 import { Categories } from '../../Categories/Categories';
 import { Sort } from '../../Sort/Sort';
 import { Pagination } from '../../Pagination/Pagination';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveIndex } from '../../../redux/slices/filterSlice';
 
 export const Home = ({ searchValue }) => {
+  const dispatch = useDispatch();
   const activeIndex = useSelector((state) => state.filters.activeIndex);
 
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortChoice, setSortChoice] = React.useState('rating');
   //const [activeIndex, setActiveIndex] = React.useState(0);
-  const [selectedPage, setSelectedPage] = useState(0);
+  const [selectedPage, setSelectedPage] = useState(1);
   const sort = () => {
     if (sortChoice.includes(' asc')) {
       return sortChoice.replace(' asc', '');
@@ -35,6 +37,11 @@ export const Home = ({ searchValue }) => {
   const finalOrder = order();
   const filter = searchValue.toLowerCase();
 
+  const setActiveIndexHandler = (index) => {
+    console.log(setActiveIndex(index));
+    dispatch(setActiveIndex(index));
+  };
+
   useEffect(() => {
     setIsLoading(true);
     fetch(
@@ -48,7 +55,15 @@ export const Home = ({ searchValue }) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [sortChoice, activeIndex, searchValue, selectedPage]);
+  }, [
+    sortChoice,
+    activeIndex,
+    searchValue,
+    selectedPage,
+    filter,
+    finalOrder,
+    finalSortChoice,
+  ]);
 
   const pizzaSkeletons = [...new Array(6)].map((_, i) => (
     <PizzaSkeleton key={i} />
@@ -69,7 +84,10 @@ export const Home = ({ searchValue }) => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories activeIndex={activeIndex} />
+        <Categories
+          activeIndex={activeIndex}
+          setActiveIndexHandler={setActiveIndexHandler}
+        />
         <Sort sortChoice={sortChoice} setSortChoice={setSortChoice} />
       </div>
       <h2 className="content__title">Все пиццы</h2>

@@ -1,13 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  activeIndex: 0,
-  sortChoice: 'rating',
-};
-
 export const slice = createSlice({
   name: 'filters',
-  initialState: {},
+  initialState: {
+    activeIndex: 0,
+    sortChoice: 'rating',
+  },
   reducers: {
     setActiveIndex: (state, action) => {
       console.log(action.payload);

@@ -1,14 +1,7 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { setActiveIndex } from '../../redux/slices/filterSlice';
 
-export const Categories = ({ activeIndex }) => {
-  const dispatch = useDispatch();
+export const Categories = ({ activeIndex, setActiveIndexHandler }) => {
   const categories = ['All', 'Meat Lovers', 'Veggie', 'BBQ', 'Spicy'];
-
-  const setActiveIndexHandler = (index) => {
-    dispatch(setActiveIndex(index));
-  };
 
   return (
     <div className="categories">
