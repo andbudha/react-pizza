@@ -7,16 +7,18 @@ import { Categories } from '../../Categories/Categories';
 import { Sort } from '../../Sort/Sort';
 import { Pagination } from '../../Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveIndex } from '../../../redux/slices/filterSlice';
+import {
+  setActiveIndex,
+  setSortChoice,
+} from '../../../redux/slices/filterSlice';
 
 export const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const activeIndex = useSelector((state) => state.filters.activeIndex);
+  const sortChoice = useSelector((state) => state.filters.sortChoice);
 
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sortChoice, setSortChoice] = React.useState('rating');
-  //const [activeIndex, setActiveIndex] = React.useState(0);
   const [selectedPage, setSelectedPage] = useState(1);
   const sort = () => {
     if (sortChoice.includes(' asc')) {
@@ -38,8 +40,11 @@ export const Home = ({ searchValue }) => {
   const filter = searchValue.toLowerCase();
 
   const setActiveIndexHandler = (index) => {
-    console.log(setActiveIndex(index));
     dispatch(setActiveIndex(index));
+  };
+
+  const setSortChoiceHandler = (choice) => {
+    dispatch(setSortChoice(choice));
   };
 
   useEffect(() => {
@@ -88,7 +93,10 @@ export const Home = ({ searchValue }) => {
           activeIndex={activeIndex}
           setActiveIndexHandler={setActiveIndexHandler}
         />
-        <Sort sortChoice={sortChoice} setSortChoice={setSortChoice} />
+        <Sort
+          sortChoice={sortChoice}
+          setSortChoiceHandler={setSortChoiceHandler}
+        />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

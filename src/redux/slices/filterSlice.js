@@ -8,11 +8,13 @@ export const slice = createSlice({
   },
   reducers: {
     setActiveIndex: (state, action) => {
-      console.log(action.payload);
       state.activeIndex = action.payload;
+    },
+    setSortChoice: (state, acton) => {
+      state.sortChoice = acton.payload;
     },
   },
 });
 
 export const filterReducer = slice.reducer;
-export const { setActiveIndex } = slice.actions;
+export const { setActiveIndex, setSortChoice } = slice.actions;

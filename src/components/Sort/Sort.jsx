@@ -1,5 +1,5 @@
 import * as React from 'react';
-export const Sort = ({ sortChoice, setSortChoice }) => {
+export const Sort = ({ sortChoice, setSortChoiceHandler }) => {
   const [openSate, setOpenState] = React.useState(false);
   const sortList = [
     'rating asc',
@@ -10,8 +10,8 @@ export const Sort = ({ sortChoice, setSortChoice }) => {
     'name desc',
   ];
 
-  const setSortChoiceHandler = (choice) => {
-    setSortChoice(choice);
+  const onClickSetSortChoice = (choice) => {
+    setSortChoiceHandler(choice);
     setOpenState(false);
   };
   return (
@@ -40,7 +40,7 @@ export const Sort = ({ sortChoice, setSortChoice }) => {
                 <li
                   key={i}
                   className={sortChoice === choice ? 'active' : ''}
-                  onClick={() => setSortChoiceHandler(choice)}
+                  onClick={() => onClickSetSortChoice(choice)}
                 >
                   {choice}
                 </li>
