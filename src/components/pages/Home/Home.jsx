@@ -5,6 +5,7 @@ import { PizzaCard } from '../../PizzaCard/PizzaCard';
 import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
 import { Categories } from '../../Categories/Categories';
 import { Sort } from '../../Sort/Sort';
+import { Pagination } from '../../Pagination/Pagination';
 
 export const Home = ({ searchValue }) => {
   const [pizzas, setPizzas] = useState([]);
@@ -72,6 +73,7 @@ export const Home = ({ searchValue }) => {
       <div className="content__items">
         {isLoading ? pizzaSkeletons : pizzaList}
       </div>
+      <Pagination />
     </div>
   );
 };
