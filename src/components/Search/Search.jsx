@@ -1,8 +1,10 @@
 import * as React from 'react';
 import styles from './Search.module.css';
 import { IoIosSearch, IoMdClose } from 'react-icons/io';
+import { AppContext } from '../../App';
 
-export const Search = ({ searchValue, setSearchValue }) => {
+export const Search = () => {
+  const { searchValue, setSearchValue } = React.useContext(AppContext);
   return (
     <div className={styles.search_box}>
       <IoIosSearch className={styles.search_icon} />
