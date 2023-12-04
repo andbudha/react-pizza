@@ -6,12 +6,15 @@ import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
 import { Categories } from '../../Categories/Categories';
 import { Sort } from '../../Sort/Sort';
 import { Pagination } from '../../Pagination/Pagination';
+import { useSelector } from 'react-redux';
 
 export const Home = ({ searchValue }) => {
+  const activeIndex = useSelector((state) => state.filters.activeIndex);
+
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortChoice, setSortChoice] = React.useState('rating');
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  //const [activeIndex, setActiveIndex] = React.useState(0);
   const [selectedPage, setSelectedPage] = useState(0);
   const sort = () => {
     if (sortChoice.includes(' asc')) {
@@ -66,7 +69,7 @@ export const Home = ({ searchValue }) => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+        <Categories activeIndex={activeIndex} />
         <Sort sortChoice={sortChoice} setSortChoice={setSortChoice} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
