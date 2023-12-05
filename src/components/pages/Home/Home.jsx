@@ -11,6 +11,7 @@ import {
   setActiveIndex,
   setSortChoice,
 } from '../../../redux/slices/filterSlice';
+import axios from 'axios';
 
 export const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
@@ -49,16 +50,17 @@ export const Home = ({ searchValue }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
-        activeIndex > 0 ? `category=${activeIndex}` : ''
-      }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setPizzas(data);
+    axios
+      .get(
+        `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
+          activeIndex > 0 ? `category=${activeIndex}` : ''
+        }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
+      )
+      .then((res) => {
+        setPizzas(res.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [
     sortChoice,
