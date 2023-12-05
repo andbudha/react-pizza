@@ -9,6 +9,7 @@ import { Pagination } from '../../Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setActiveIndex,
+  setSelectedPage,
   setSortChoice,
 } from '../../../redux/slices/filterSlice';
 import axios from 'axios';
@@ -17,10 +18,11 @@ export const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const activeIndex = useSelector((state) => state.filters.activeIndex);
   const sortChoice = useSelector((state) => state.filters.sortChoice);
+  const selectedPage = useSelector((state) => state.filters.selectedPage);
 
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedPage, setSelectedPage] = useState(1);
+
   const sort = () => {
     if (sortChoice.includes(' asc')) {
       return sortChoice.replace(' asc', '');
@@ -48,6 +50,9 @@ export const Home = ({ searchValue }) => {
     dispatch(setSortChoice(choice));
   };
 
+  const setSelectedPageHandler = (pageNumber) => {
+    dispatch(setSelectedPage(pageNumber));
+  };
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -104,7 +109,7 @@ export const Home = ({ searchValue }) => {
       <div className="content__items">
         {isLoading ? pizzaSkeletons : pizzaList}
       </div>
-      <Pagination setSelectedPage={setSelectedPage} />
+      <Pagination setSelectedPageHandler={setSelectedPageHandler} />
     </div>
   );
 };
