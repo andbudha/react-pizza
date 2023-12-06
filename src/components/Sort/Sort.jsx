@@ -9,13 +9,28 @@ export const sortList = [
 ];
 export const Sort = ({ sortChoice, setSortChoiceHandler }) => {
   const [openSate, setOpenState] = React.useState(false);
+  const sortRef = React.useRef();
 
   const onClickSetSortChoice = (choice) => {
     setSortChoiceHandler(choice);
     setOpenState(false);
   };
+
+  React.useEffect(() => {
+    const outsideClickHandler = (e) => {
+      if (!e.composedPath().includes(sortRef.current)) {
+        setOpenState(false);
+      }
+    };
+    document.body.addEventListener('click', outsideClickHandler);
+
+    return () => {
+      document.body.removeEventListener('click', outsideClickHandler);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
           width="10"

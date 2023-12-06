@@ -91,18 +91,18 @@ export const Home = ({ searchValue }) => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      console.log(params.sortChoice);
       const index = sortList.findIndex((choice) => {
         return choice === params.sortChoice;
       });
-      console.log(index, sortList[index]);
-      dispatch(
-        setFilters({
-          ...params,
-          sortChoice: sortList[index],
-        })
-      );
-      isSearch.current = true;
+      if (index !== -1) {
+        dispatch(
+          setFilters({
+            ...params,
+            sortChoice: sortList[index],
+          })
+        );
+        isSearch.current = true;
+      }
     }
   }, []);
 
