@@ -6,4 +6,3 @@ export const store = configureStore({
     filters: filterReducer,
   },
 });
-console.log(store);

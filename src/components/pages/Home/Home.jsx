@@ -4,43 +4,31 @@ import { useEffect, useState } from 'react';
 import { PizzaCard } from '../../PizzaCard/PizzaCard';
 import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
 import { Categories } from '../../Categories/Categories';
-import { Sort } from '../../Sort/Sort';
+import { Sort, sortList } from '../../Sort/Sort';
 import { Pagination } from '../../Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setActiveIndex,
+  setFilters,
   setSelectedPage,
   setSortChoice,
 } from '../../../redux/slices/filterSlice';
 import axios from 'axios';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = ({ searchValue }) => {
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const activeIndex = useSelector((state) => state.filters.activeIndex);
   const sortChoice = useSelector((state) => state.filters.sortChoice);
   const selectedPage = useSelector((state) => state.filters.selectedPage);
 
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const sort = () => {
-    if (sortChoice.includes(' asc')) {
-      return sortChoice.replace(' asc', '');
-    } else if (sortChoice.includes(' desc')) {
-      return sortChoice.replace(' desc', '');
-    }
-  };
-
-  const order = () => {
-    if (sortChoice.includes('asc')) {
-      return 'asc';
-    } else if (sortChoice.includes('desc')) {
-      return 'desc';
-    }
-  };
-  const finalSortChoice = sort();
-  const finalOrder = order();
-  const filter = searchValue.toLowerCase();
 
   const setActiveIndexHandler = (index) => {
     dispatch(setActiveIndex(index));
@@ -53,8 +41,28 @@ export const Home = ({ searchValue }) => {
   const setSelectedPageHandler = (pageNumber) => {
     dispatch(setSelectedPage(pageNumber));
   };
-  useEffect(() => {
+
+  const getPizzas = () => {
     setIsLoading(true);
+
+    const sort = () => {
+      if (sortChoice.includes(' asc')) {
+        return sortChoice.replace(' asc', '');
+      } else if (sortChoice.includes(' desc')) {
+        return sortChoice.replace(' desc', '');
+      }
+    };
+
+    const order = () => {
+      if (sortChoice.includes('asc')) {
+        return 'asc';
+      } else if (sortChoice.includes('desc')) {
+        return 'desc';
+      }
+    };
+    const finalSortChoice = sort();
+    const finalOrder = order();
+    const filter = searchValue.toLowerCase();
     axios
       .get(
         `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
@@ -65,17 +73,46 @@ export const Home = ({ searchValue }) => {
         setPizzas(res.data);
         setIsLoading(false);
       });
+  };
 
+  useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortChoice,
+        activeIndex,
+        selectedPage,
+      });
+
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [sortChoice, activeIndex, searchValue, selectedPage]);
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      console.log(params.sortChoice);
+      const index = sortList.findIndex((choice) => {
+        return choice === params.sortChoice;
+      });
+      console.log(index, sortList[index]);
+      dispatch(
+        setFilters({
+          ...params,
+          sortChoice: sortList[index],
+        })
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }, [
-    sortChoice,
-    activeIndex,
-    searchValue,
-    selectedPage,
-    filter,
-    finalOrder,
-    finalSortChoice,
-  ]);
+    if (!isSearch.current) {
+      getPizzas();
+    }
+    isSearch.current = false;
+  }, [sortChoice, activeIndex, searchValue, selectedPage]);
 
   const pizzaSkeletons = [...new Array(6)].map((_, i) => (
     <PizzaSkeleton key={i} />
