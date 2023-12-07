@@ -15,10 +15,20 @@ export const PizzaCard = ({
 
   const pizzaType = ['thin-crust', 'thick-crust'];
   const [activeType, setActiveType] = useState(0);
-  const [activeSize, setActiveSize] = useState(26);
+  const [pizzaSize, setPizzaSize] = useState(26);
+  const crustType = activeType === 0 ? 'thin-crust' : 'thick-crust';
 
   const addPizzaHandler = () => {
-    dispatch(addPizza({ pizzaName, pizzaImage, pizzaPrice, pizzaId }));
+    dispatch(
+      addPizza({
+        pizzaName,
+        pizzaImage,
+        pizzaPrice,
+        pizzaId,
+        pizzaSize,
+        crustType,
+      })
+    );
   };
 
   return (
@@ -45,8 +55,8 @@ export const PizzaCard = ({
               return (
                 <li
                   key={size}
-                  onClick={() => setActiveSize(size)}
-                  className={activeSize === size ? 'active' : ''}
+                  onClick={() => setPizzaSize(size)}
+                  className={pizzaSize === size ? 'active' : ''}
                 >
                   {size} cm.
                 </li>
@@ -70,7 +80,6 @@ export const PizzaCard = ({
               />
             </svg>
             <span>add</span>
-            <i>0</i>
           </div>
         </div>
       </div>

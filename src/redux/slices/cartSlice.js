@@ -14,6 +14,9 @@ const slice = createSlice({
         image: action.payload.pizzaImage,
         name: action.payload.pizzaName,
         price: action.payload.pizzaPrice,
+        size: action.payload.pizzaSize,
+        crustType: action.payload.crustType,
+        amount: 1,
       };
       state.cartItems.unshift(pizza);
     },

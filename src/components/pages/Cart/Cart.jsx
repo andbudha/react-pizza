@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
 import { removeAllPizzas } from '../../../redux/slices/cartSlice';
 
-export const Cart = (props) => {
+export const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems);
   const dispatch = useDispatch();
   const cartItemList = cartItems.map((item) => (
     <CartItem
@@ -16,6 +17,9 @@ export const Cart = (props) => {
       image={item.image}
       name={item.name}
       price={item.price}
+      size={item.size}
+      crustType={item.crustType}
+      amount={item.amount}
     />
   ));
   console.log(cartItems);
