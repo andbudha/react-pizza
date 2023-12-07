@@ -3,22 +3,22 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'cart',
   initialState: {
-    items: [],
+    cartItems: [],
     totalAmount: 0,
     totalSum: 0,
   },
   reducers: {
     addPizza: (state, action) => {
-      state.items.unshift(action.payload);
+      state.cartItems.unshift(action.payload);
     },
     removePizza: (state, action) => {
-      state.items.filter((item) => item.id !== action.payload);
+      state.cartItems.filter((item) => item.id !== action.payload);
     },
     removeAllPizzas: (state, action) => {
-      state.items = [];
+      state.cartItems = [];
     },
     setTotalAmount: (state, action) => {
-      state.items.length();
+      state.cartItems.length();
     },
   },
 });

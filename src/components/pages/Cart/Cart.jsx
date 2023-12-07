@@ -2,8 +2,12 @@
 import * as React from 'react';
 import styles from './Cart.module.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { CartItem } from './CartItem/CartItem';
 
 export const Cart = (props) => {
+  const totalItemAmount = useSelector((state) => state.cart.cartItems);
+  console.log(totalItemAmount);
   return (
     <div className={styles.not_found_box}>
       <div className="cart">
@@ -82,7 +86,7 @@ export const Cart = (props) => {
           </div>
         </div>
         <div className="cart__items">
-          <div className="cart__item">
+          {/* <div className="cart__item">
             <div className="cart__item-img">
               <img
                 className="pizza-block__image"
@@ -156,13 +160,14 @@ export const Cart = (props) => {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
+          <CartItem />
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Total amount: <b>3 pc-s.</b>{' '}
+              Total amount: <b>{totalItemAmount.length} pc-s.</b>{' '}
             </span>
             <span>
               {' '}
