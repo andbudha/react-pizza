@@ -1,23 +1,31 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addPizza } from '../../redux/slices/cartSlice';
 
 export const PizzaCard = ({
-  pizzaname,
-  price,
+  pizzaName,
+  pizzaPrice,
   pizzaImage,
   types,
   sizes,
-  id,
+  pizzaId,
 }) => {
+  const dispatch = useDispatch();
+
   const pizzaType = ['thin-crust', 'thick-crust'];
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(26);
+
+  const addPizzaHandler = () => {
+    dispatch(addPizza({ pizzaName, pizzaImage, pizzaPrice, pizzaId }));
+  };
 
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
-        <h4 className="pizza-block__title">{pizzaname}</h4>
+        <h4 className="pizza-block__title">{pizzaName}</h4>
         <div className="pizza-block__selector">
           <ul>
             {types.map((type) => {
@@ -46,8 +54,8 @@ export const PizzaCard = ({
             })}
           </ul>
         </div>
-        <div className="pizza-block__bottom">
-          <div className="pizza-block__price">{price}€</div>
+        <div className="pizza-block__bottom" onClick={addPizzaHandler}>
+          <div className="pizza-block__price">{pizzaPrice}€</div>
           <div className="button button--outline button--add">
             <svg
               width="12"

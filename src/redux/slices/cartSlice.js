@@ -9,7 +9,13 @@ const slice = createSlice({
   },
   reducers: {
     addPizza: (state, action) => {
-      state.cartItems.unshift(action.payload);
+      const pizza = {
+        id: action.payload.pizzaId,
+        image: action.payload.pizzaImage,
+        name: action.payload.pizzaName,
+        price: action.payload.pizzaPrice,
+      };
+      state.cartItems.unshift(pizza);
     },
     removePizza: (state, action) => {
       state.cartItems.filter((item) => item.id !== action.payload);
@@ -24,4 +30,5 @@ const slice = createSlice({
 });
 
 export const cartReducer = slice.reducer;
-export const {} = slice.actions;
+export const { addPizza, removePizza, removeAllPizzas, setTotalAmount } =
+  slice.actions;

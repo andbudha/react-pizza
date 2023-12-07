@@ -122,12 +122,12 @@ export const Home = ({ searchValue }) => {
     return (
       <PizzaCard
         key={pizza.id}
-        pizzaname={pizza.name}
+        pizzaName={pizza.name}
         pizzaImage={pizza.imageUrl}
-        price={pizza.price}
+        pizzaPrice={pizza.price}
         sizes={pizza.sizes}
         types={pizza.types}
-        id={pizza.id}
+        pizzaId={pizza.id}
       />
     );
   });

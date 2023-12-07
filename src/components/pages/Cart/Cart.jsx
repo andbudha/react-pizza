@@ -6,8 +6,17 @@ import { useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
 
 export const Cart = (props) => {
-  const totalItemAmount = useSelector((state) => state.cart.cartItems);
-  console.log(totalItemAmount);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItemList = cartItems.map((item) => (
+    <CartItem
+      key={item.id}
+      id={item.id}
+      image={item.image}
+      name={item.name}
+      price={item.price}
+    />
+  ));
+  console.log(cartItems);
   return (
     <div className={styles.not_found_box}>
       <div className="cart">
@@ -161,13 +170,13 @@ export const Cart = (props) => {
               </div>
             </div>
           </div> */}
-          <CartItem />
+          {cartItemList}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Total amount: <b>{totalItemAmount.length} pc-s.</b>{' '}
+              Total amount: <b>{cartItems.length} pc-s.</b>{' '}
             </span>
             <span>
               {' '}
