@@ -2,11 +2,13 @@
 import * as React from 'react';
 import styles from './Cart.module.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
+import { removeAllPizzas } from '../../../redux/slices/cartSlice';
 
 export const Cart = (props) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
   const cartItemList = cartItems.map((item) => (
     <CartItem
       key={item.id}
@@ -21,6 +23,10 @@ export const Cart = (props) => {
   const totalSum = cartItems.reduce((acc, curr) => {
     return acc + curr.price;
   }, 0);
+
+  const removeAllCartItemsHandler = () => {
+    dispatch(removeAllPizzas());
+  };
   return (
     <div className={styles.not_found_box}>
       <div className="cart">
@@ -57,7 +63,7 @@ export const Cart = (props) => {
             </svg>
             Cart
           </h2>
-          <div className="cart__clear">
+          <div className="cart__clear" onClick={removeAllCartItemsHandler}>
             <svg
               width="20"
               height="20"
