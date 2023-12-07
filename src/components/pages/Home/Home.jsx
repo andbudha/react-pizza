@@ -127,6 +127,7 @@ export const Home = ({ searchValue }) => {
         price={pizza.price}
         sizes={pizza.sizes}
         types={pizza.types}
+        id={pizza.id}
       />
     );
   });
