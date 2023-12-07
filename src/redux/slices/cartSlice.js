@@ -10,7 +10,7 @@ const slice = createSlice({
   reducers: {
     addPizza: (state, action) => {
       const pizza = {
-        id: action.payload.pizzaId,
+        id: Math.random() * 10,
         image: action.payload.pizzaImage,
         name: action.payload.pizzaName,
         price: action.payload.pizzaPrice,
@@ -18,7 +18,9 @@ const slice = createSlice({
       state.cartItems.unshift(pizza);
     },
     removePizza: (state, action) => {
-      state.cartItems.filter((item) => item.id !== action.payload);
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
     },
     removeAllPizzas: (state, action) => {
       state.cartItems = [];

@@ -1,7 +1,13 @@
 // @flow
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { removePizza } from '../../../../redux/slices/cartSlice';
 
 export const CartItem = ({ id, image, name, price }) => {
+  const dispatch = useDispatch();
+  const removeCartItemHandler = () => {
+    dispatch(removePizza({ id }));
+  };
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -53,7 +59,7 @@ export const CartItem = ({ id, image, name, price }) => {
       <div className="cart__item-price">
         <b>{price} €</b>
       </div>
-      <div className="cart__item-remove">
+      <div className="cart__item-remove" onClick={removeCartItemHandler}>
         <div className="button button--outline button--circle">
           <svg
             width="10"
