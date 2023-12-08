@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPizza } from '../../redux/slices/cartSlice';
 
 export const PizzaCard = ({
@@ -11,6 +11,8 @@ export const PizzaCard = ({
   sizes,
   pizzaId,
 }) => {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems);
   const dispatch = useDispatch();
 
   const pizzaType = ['thin-crust', 'thick-crust'];
@@ -19,16 +21,15 @@ export const PizzaCard = ({
   const crustType = activeType === 0 ? 'thin-crust' : 'thick-crust';
 
   const addPizzaHandler = () => {
-    dispatch(
-      addPizza({
-        pizzaName,
-        pizzaImage,
-        pizzaPrice,
-        pizzaId,
-        pizzaSize,
-        crustType,
-      })
-    );
+    const newPizza = {
+      pizzaName,
+      pizzaPrice,
+      pizzaImage,
+      pizzaId,
+      crustType,
+      pizzaSize,
+    };
+    dispatch(addPizza(newPizza));
   };
 
   return (

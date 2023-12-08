@@ -8,7 +8,7 @@ export const CartItem = ({
   price,
   size,
   crustType,
-  amount,
+  count,
 }) => {
   return (
     <div className="cart__item">
@@ -40,7 +40,7 @@ export const CartItem = ({
             ></path>
           </svg>
         </div>
-        <b>{amount}</b>
+        <b>{count}</b>
         <div className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"

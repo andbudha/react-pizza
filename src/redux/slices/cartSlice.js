@@ -8,7 +8,19 @@ const slice = createSlice({
   },
   reducers: {
     addPizza: (state, action) => {
-      state.cartItems.unshift(action.payload);
+      const foundItem = state.cartItems.find(
+        (item) => item.pizzaId === action.payload.pizzaId
+      );
+      if (foundItem) {
+        foundItem.count++;
+      } else {
+        state.cartItems.push({ ...action.payload, count: 1 });
+      }
+      // state.cartItems.unshift(action.payload);
+      state.totalSum = state.cartItems.reduce(
+        (sum, item) => sum + item.pizzaPrice * item.count,
+        0
+      );
     },
     removePizza: (state, action) => {
       state.cartItems = state.cartItems.filter(

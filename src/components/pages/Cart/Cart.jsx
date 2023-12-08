@@ -7,16 +7,22 @@ import { CartItem } from './CartItem/CartItem';
 
 export const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log(cartItems);
+  const cartItemAmount = cartItems.reduce(
+    (amount, item) => amount + item.count,
+    0
+  );
+  const totalSum = useSelector((state) => state.cart.totalSum);
   const cartItemList = cartItems.map((item) => (
     <CartItem
-      key={item.id}
-      id={item.id}
-      image={item.image}
-      name={item.name}
-      price={item.price}
-      size={item.size}
+      key={item.pizzaId}
+      id={item.pizzaId}
+      image={item.pizzaImage}
+      name={item.pizzaName}
+      price={item.pizzaPrice}
+      size={item.pizzaSize}
       crustType={item.crustType}
-      amount={item.amount}
+      count={item.count}
     />
   ));
   return (
@@ -101,11 +107,11 @@ export const Cart = () => {
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Total amount: <b>0</b>{' '}
+              Total amount: <b>{cartItemAmount}</b>{' '}
             </span>
             <span>
               {' '}
-              Total sum: <b>{0} €</b>{' '}
+              Total sum: <b>{totalSum} €</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">
