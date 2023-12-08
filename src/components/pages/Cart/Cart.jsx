@@ -29,7 +29,9 @@ export const Cart = () => {
   ));
 
   const clearCartHandler = () => {
-    dispatch(removeAllPizzas());
+    if (window.confirm('Do you want to clear the cart?')) {
+      dispatch(removeAllPizzas());
+    }
   };
   return (
     <div className={styles.not_found_box}>
@@ -141,7 +143,7 @@ export const Cart = () => {
                 ></path>
               </svg>
 
-              <span>Main</span>
+              <span>Back</span>
             </Link>
             <div className="button pay-btn">
               <span>Pay now</span>
