@@ -42,10 +42,7 @@ const slice = createSlice({
       if (foundItem) {
         foundItem.count--;
       }
-      state.totalSum = state.cartItems.reduce(
-        (sum, item) => item.pizzaPrice * item.count - sum,
-        0
-      );
+      state.totalSum = state.totalSum - foundItem.pizzaPrice;
     },
     removePizza: (state, action) => {
       state.cartItems = state.cartItems.filter(

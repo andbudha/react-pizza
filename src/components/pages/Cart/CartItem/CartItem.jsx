@@ -35,9 +35,10 @@ export const CartItem = ({
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
           className="button button--outline button--circle cart__item-count-minus"
           onClick={removeItemHandler}
+          disabled={count < 1}
         >
           <svg
             width="10"
@@ -55,7 +56,7 @@ export const CartItem = ({
               fill="#EB5A1E"
             ></path>
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
         <div
           className="button button--outline button--circle cart__item-count-plus"
