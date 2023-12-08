@@ -2,14 +2,11 @@
 import * as React from 'react';
 import styles from './Cart.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
-import { removeAllPizzas } from '../../../redux/slices/cartSlice';
 
 export const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  console.log(cartItems);
-  const dispatch = useDispatch();
   const cartItemList = cartItems.map((item) => (
     <CartItem
       key={item.id}
@@ -22,15 +19,6 @@ export const Cart = () => {
       amount={item.amount}
     />
   ));
-  console.log(cartItems);
-
-  const totalSum = cartItems.reduce((acc, curr) => {
-    return acc + curr.price;
-  }, 0);
-
-  const removeAllCartItemsHandler = () => {
-    dispatch(removeAllPizzas());
-  };
   return (
     <div className={styles.not_found_box}>
       <div className="cart">
@@ -67,7 +55,7 @@ export const Cart = () => {
             </svg>
             Cart
           </h2>
-          <div className="cart__clear" onClick={removeAllCartItemsHandler}>
+          <div className="cart__clear">
             <svg
               width="20"
               height="20"
@@ -113,14 +101,11 @@ export const Cart = () => {
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Total amount:{' '}
-              <b>
-                {cartItems.length} {cartItems.length > 1 ? 'items' : 'item'}
-              </b>{' '}
+              Total amount: <b>0</b>{' '}
             </span>
             <span>
               {' '}
-              Total sum: <b>{totalSum} €</b>{' '}
+              Total sum: <b>{0} €</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">

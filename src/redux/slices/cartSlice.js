@@ -4,21 +4,11 @@ const slice = createSlice({
   name: 'cart',
   initialState: {
     cartItems: [],
-    totalAmount: 0,
     totalSum: 0,
   },
   reducers: {
     addPizza: (state, action) => {
-      const pizza = {
-        id: Math.random() * 10,
-        image: action.payload.pizzaImage,
-        name: action.payload.pizzaName,
-        price: action.payload.pizzaPrice,
-        size: action.payload.pizzaSize,
-        crustType: action.payload.crustType,
-        amount: 1,
-      };
-      state.cartItems.unshift(pizza);
+      state.cartItems.unshift(action.payload);
     },
     removePizza: (state, action) => {
       state.cartItems = state.cartItems.filter(
@@ -28,12 +18,8 @@ const slice = createSlice({
     removeAllPizzas: (state, action) => {
       state.cartItems = [];
     },
-    setTotalAmount: (state, action) => {
-      state.cartItems.length();
-    },
   },
 });
 
 export const cartReducer = slice.reducer;
-export const { addPizza, removePizza, removeAllPizzas, setTotalAmount } =
-  slice.actions;
+export const { addPizza, removePizza, removeAllPizzas } = slice.actions;
