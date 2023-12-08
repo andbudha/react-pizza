@@ -1,5 +1,11 @@
 // @flow
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  addPizza,
+  addSimilarPizza,
+  removeSimilarPizza,
+} from '../../../../redux/slices/cartSlice';
 
 export const CartItem = ({
   id,
@@ -10,6 +16,13 @@ export const CartItem = ({
   crustType,
   count,
 }) => {
+  const dispatch = useDispatch();
+  const addItemHandler = () => {
+    dispatch(addSimilarPizza({ id }));
+  };
+  const removeItemHandler = () => {
+    dispatch(removeSimilarPizza({ id }));
+  };
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -18,11 +31,14 @@ export const CartItem = ({
       <div className="cart__item-info">
         <h3>{name}</h3>
         <p>
-          {size} cm. / {crustType}
+          {size} cm. / {crustType} / {`${price} €`}
         </p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          className="button button--outline button--circle cart__item-count-minus"
+          onClick={removeItemHandler}
+        >
           <svg
             width="10"
             height="10"
@@ -41,7 +57,10 @@ export const CartItem = ({
           </svg>
         </div>
         <b>{count}</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <div
+          className="button button--outline button--circle cart__item-count-plus"
+          onClick={addItemHandler}
+        >
           <svg
             width="10"
             height="10"
@@ -61,7 +80,7 @@ export const CartItem = ({
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price} €</b>
+        <b>{price * count} €</b>
       </div>
       <div className="cart__item-remove">
         <div className="button button--outline button--circle">
