@@ -14,22 +14,8 @@ const slice = createSlice({
       if (foundItem) {
         foundItem.count++;
       } else {
-        state.cartItems.push({ ...action.payload, count: 1 });
+        state.cartItems.unshift({ ...action.payload, count: 1 });
       }
-      // state.cartItems.unshift(action.payload);
-      state.totalSum = state.cartItems.reduce(
-        (sum, item) => sum + item.pizzaPrice * item.count,
-        0
-      );
-    },
-    addSimilarPizza: (state, action) => {
-      const foundItem = state.cartItems.find(
-        (item) => item.pizzaId === action.payload.id
-      );
-      if (foundItem) {
-        foundItem.count++;
-      }
-      // state.cartItems.unshift(action.payload);
       state.totalSum = state.cartItems.reduce(
         (sum, item) => sum + item.pizzaPrice * item.count,
         0
@@ -45,12 +31,17 @@ const slice = createSlice({
       state.totalSum = state.totalSum - foundItem.pizzaPrice;
     },
     removePizza: (state, action) => {
-      state.cartItems = state.cartItems.filter(
-        (item) => item.id !== action.payload.id
+      const foundItem = state.cartItems.find(
+        (item) => item.pizzaId === action.payload.pizzaId
       );
+      state.cartItems = state.cartItems.filter(
+        (item) => item.pizzaId !== action.payload.pizzaId
+      );
+      state.totalSum = state.totalSum - foundItem.pizzaPrice * foundItem.count;
     },
     removeAllPizzas: (state, action) => {
       state.cartItems = [];
+      state.totalSum = 0;
     },
   },
 });
@@ -61,6 +52,5 @@ export const {
   removePizza,
   removeAllPizzas,
   addNewPizza,
-  addSimilarPizza,
   removeSimilarPizza,
 } = slice.actions;
