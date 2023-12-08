@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
 import { removeAllPizzas } from '../../../redux/slices/cartSlice';
+import { EmpyCart } from './EmptyCart/EmpyCart';
 
 export const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -33,6 +34,10 @@ export const Cart = () => {
       dispatch(removeAllPizzas());
     }
   };
+
+  if (!totalSum) {
+    return <EmpyCart />;
+  }
   return (
     <div className={styles.not_found_box}>
       <div className="cart">
