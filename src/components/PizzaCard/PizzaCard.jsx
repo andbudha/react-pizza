@@ -12,6 +12,9 @@ export const PizzaCard = ({
   pizzaId,
 }) => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const foundItem = useSelector((state) =>
+    state.cart.cartItems.find((item) => item.pizzaId === pizzaId)
+  );
   console.log(cartItems);
   const dispatch = useDispatch();
 
@@ -19,7 +22,7 @@ export const PizzaCard = ({
   const [activeType, setActiveType] = useState(0);
   const [pizzaSize, setPizzaSize] = useState(26);
   const crustType = activeType === 0 ? 'thin-crust' : 'thick-crust';
-
+  const addedCount = foundItem ? foundItem.count : 0;
   const addPizzaHandler = () => {
     const newPizza = {
       pizzaName,
@@ -81,6 +84,7 @@ export const PizzaCard = ({
               />
             </svg>
             <span>add</span>
+            {addedCount > 0 && <i>{addedCount}</i>}
           </div>
         </div>
       </div>
