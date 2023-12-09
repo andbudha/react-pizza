@@ -17,6 +17,13 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { pizzaThunks } from '../../../redux/slices/pizzaSlice';
 import { AxiosError } from '../../AxiosError/AxiosError';
+import {
+  activeIndexSelector,
+  selectedPageSelector,
+  sortChoiceSelector,
+  pizzaSelector,
+  statusSelector,
+} from '../../../redux/Selectors/Selectors';
 
 export const Home = ({ searchValue }) => {
   const isSearch = React.useRef(false);
@@ -24,11 +31,11 @@ export const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const activeIndex = useSelector((state) => state.filters.activeIndex);
-  const sortChoice = useSelector((state) => state.filters.sortChoice);
-  const selectedPage = useSelector((state) => state.filters.selectedPage);
-  const pizzas = useSelector((state) => state.pizzas.pizzas);
-  const status = useSelector((state) => state.pizzas.status);
+  const activeIndex = useSelector(activeIndexSelector);
+  const sortChoice = useSelector(sortChoiceSelector);
+  const selectedPage = useSelector(selectedPageSelector);
+  const pizzas = useSelector(pizzaSelector);
+  const status = useSelector(statusSelector);
 
   const setActiveIndexHandler = (index) => {
     dispatch(setActiveIndex(index));

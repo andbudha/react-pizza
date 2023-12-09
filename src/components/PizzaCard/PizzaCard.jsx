@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPizza } from '../../redux/slices/cartSlice';
+import { cartItemsSelector } from '../../redux/Selectors/Selectors';
 
 export const PizzaCard = ({
   pizzaName,
@@ -11,11 +12,10 @@ export const PizzaCard = ({
   sizes,
   pizzaId,
 }) => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItems = useSelector(cartItemsSelector);
   const foundItem = useSelector((state) =>
     state.cart.cartItems.find((item) => item.pizzaId === pizzaId)
   );
-  console.log(cartItems);
   const dispatch = useDispatch();
 
   const pizzaType = ['thin-crust', 'thick-crust'];

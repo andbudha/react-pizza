@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
 import { removeAllPizzas } from '../../../redux/slices/cartSlice';
 import { EmpyCart } from './EmptyCart/EmpyCart';
+import { cartItemsSelector } from '../../../redux/Selectors/Selectors';
 
 export const Cart = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItems = useSelector(cartItemsSelector);
   const dispatch = useDispatch();
   console.log(cartItems);
   const cartItemAmount = cartItems.reduce(
