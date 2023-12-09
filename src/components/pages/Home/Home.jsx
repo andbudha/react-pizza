@@ -16,6 +16,7 @@ import {
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { pizzaThunks } from '../../../redux/slices/pizzaSlice';
+import { AxiosError } from '../../AxiosError/AxiosError';
 
 export const Home = ({ searchValue }) => {
   const isSearch = React.useRef(false);
@@ -128,6 +129,9 @@ export const Home = ({ searchValue }) => {
       />
     );
   });
+  if (status === 'error') {
+    return <AxiosError />;
+  }
   return (
     <div className="container">
       <div className="content__top">
