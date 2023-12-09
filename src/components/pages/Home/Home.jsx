@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { PizzaCard } from '../../PizzaCard/PizzaCard';
 import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
 import { Categories } from '../../Categories/Categories';
@@ -13,9 +13,9 @@ import {
   setSelectedPage,
   setSortChoice,
 } from '../../../redux/slices/filterSlice';
-import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
+import { pizzaThunks } from '../../../redux/slices/pizzaSlice';
 
 export const Home = ({ searchValue }) => {
   const isSearch = React.useRef(false);
@@ -26,9 +26,8 @@ export const Home = ({ searchValue }) => {
   const activeIndex = useSelector((state) => state.filters.activeIndex);
   const sortChoice = useSelector((state) => state.filters.sortChoice);
   const selectedPage = useSelector((state) => state.filters.selectedPage);
-
-  const [pizzas, setPizzas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const pizzas = useSelector((state) => state.pizzas.pizzas);
+  const isLoading = useSelector((state) => state.pizzas.isLoading);
 
   const setActiveIndexHandler = (index) => {
     dispatch(setActiveIndex(index));
@@ -43,7 +42,7 @@ export const Home = ({ searchValue }) => {
   };
 
   const getPizzas = async () => {
-    setIsLoading(true);
+    // dispatch(pizzaActions.setIsLoading(true));
 
     const sort = () => {
       if (sortChoice.includes(' asc')) {
@@ -64,18 +63,15 @@ export const Home = ({ searchValue }) => {
     const finalOrder = order();
     const filter = searchValue.toLowerCase();
 
-    const res = await axios.get(
-      `https://-656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
-        activeIndex > 0 ? `category=${activeIndex}` : ''
-      }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
+    dispatch(
+      pizzaThunks.setPizzas({
+        activeIndex,
+        finalSortChoice,
+        finalOrder,
+        filter,
+        selectedPage,
+      })
     );
-    try {
-      setPizzas(res.data);
-    } catch (error) {
-      alert('Error occurred when getting pizzas!');
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   useEffect(() => {
