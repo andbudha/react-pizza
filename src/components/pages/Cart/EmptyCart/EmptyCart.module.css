@@ -17,7 +17,7 @@
 
 .emptycart_img {
   width: 400px;
-  margin: 50px 0;
+  margin: 50px 0 60px;
 }
 
 .back_btn {
@@ -28,6 +28,7 @@
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .back_btn:hover {

@@ -42,7 +42,7 @@ export const Home = ({ searchValue }) => {
     dispatch(setSelectedPage(pageNumber));
   };
 
-  const getPizzas = () => {
+  const getPizzas = async () => {
     setIsLoading(true);
 
     const sort = () => {
@@ -63,16 +63,19 @@ export const Home = ({ searchValue }) => {
     const finalSortChoice = sort();
     const finalOrder = order();
     const filter = searchValue.toLowerCase();
-    axios
-      .get(
-        `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
-          activeIndex > 0 ? `category=${activeIndex}` : ''
-        }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
-      )
-      .then((res) => {
-        setPizzas(res.data);
-        setIsLoading(false);
-      });
+
+    const res = await axios.get(
+      `https://-656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
+        activeIndex > 0 ? `category=${activeIndex}` : ''
+      }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
+    );
+    try {
+      setPizzas(res.data);
+    } catch (error) {
+      alert('Error occurred when getting pizzas!');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
