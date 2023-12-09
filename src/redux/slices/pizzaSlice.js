@@ -32,7 +32,7 @@ const setPizzas = createAsyncThunk(
   ) => {
     const { dispatch } = thinkIPI;
     const res = await axios.get(
-      `https://-656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
+      `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
         activeIndex > 0 ? `category=${activeIndex}` : ''
       }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
     );

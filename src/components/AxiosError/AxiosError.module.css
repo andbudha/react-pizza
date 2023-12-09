@@ -12,9 +12,8 @@
   justify-content: center;
   align-items: center;
 }
-
-h1,
-h2 {
+.error_title,
+.error_subtitle {
   color: #fe5f1e;
   margin-bottom: 30px;
 }
