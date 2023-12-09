@@ -27,7 +27,7 @@ export const Home = ({ searchValue }) => {
   const sortChoice = useSelector((state) => state.filters.sortChoice);
   const selectedPage = useSelector((state) => state.filters.selectedPage);
   const pizzas = useSelector((state) => state.pizzas.pizzas);
-  const isLoading = useSelector((state) => state.pizzas.isLoading);
+  const status = useSelector((state) => state.pizzas.status);
 
   const setActiveIndexHandler = (index) => {
     dispatch(setActiveIndex(index));
@@ -42,8 +42,6 @@ export const Home = ({ searchValue }) => {
   };
 
   const getPizzas = async () => {
-    // dispatch(pizzaActions.setIsLoading(true));
-
     const sort = () => {
       if (sortChoice.includes(' asc')) {
         return sortChoice.replace(' asc', '');
@@ -144,7 +142,7 @@ export const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading ? pizzaSkeletons : pizzaList}
+        {status === 'loading' ? pizzaSkeletons : pizzaList}
       </div>
       <Pagination setSelectedPageHandler={setSelectedPageHandler} />
     </div>

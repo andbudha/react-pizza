@@ -4,18 +4,22 @@ import axios from 'axios';
 const slice = createSlice({
   name: 'pizzas',
   initialState: {
-    isLoading: false,
+    status: '', //loading | success | error
     pizzas: [],
   },
-  reducers: {
-    setIsLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(setPizzas.fulfilled, (state, action) => {
-      state.pizzas = action.payload;
-    });
+    builder
+      .addCase(setPizzas.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(setPizzas.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.pizzas = action.payload;
+      })
+      .addCase(setPizzas.rejected, (state, action) => {
+        state.status = 'error';
+      });
   },
 });
 
@@ -26,7 +30,6 @@ const setPizzas = createAsyncThunk(
     thinkIPI
   ) => {
     const { dispatch } = thinkIPI;
-    dispatch(pizzaActions.setIsLoading(true));
     const res = await axios.get(
       `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
         activeIndex > 0 ? `category=${activeIndex}` : ''
@@ -35,11 +38,9 @@ const setPizzas = createAsyncThunk(
 
     try {
       const pizzas = res.data;
-      console.log(pizzas);
       return pizzas;
     } catch (error) {
     } finally {
-      dispatch(pizzaActions.setIsLoading(false));
     }
   }
 );
