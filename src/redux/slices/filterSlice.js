@@ -5,6 +5,7 @@ const slice = createSlice({
     activeIndex: 0,
     sortChoice: 'rating asc',
     selectedPage: 1,
+    searchValue: '',
   },
   reducers: {
     setActiveIndex: (state, action) => {
@@ -21,9 +22,17 @@ const slice = createSlice({
       state.selectedPage = Number(action.payload.selectedPage);
       state.sortChoice = action.payload.sortChoice;
     },
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload;
+    },
   },
 });
 
 export const filterReducer = slice.reducer;
-export const { setActiveIndex, setSortChoice, setSelectedPage, setFilters } =
-  slice.actions;
+export const {
+  setActiveIndex,
+  setSortChoice,
+  setSelectedPage,
+  setFilters,
+  setSearchValue,
+} = slice.actions;

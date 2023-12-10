@@ -23,9 +23,10 @@ import {
   sortChoiceSelector,
   pizzaSelector,
   statusSelector,
+  searchValueSelector,
 } from '../../../redux/Selectors/Selectors';
 
-export const Home = ({ searchValue }) => {
+export const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export const Home = ({ searchValue }) => {
   const selectedPage = useSelector(selectedPageSelector);
   const pizzas = useSelector(pizzaSelector);
   const status = useSelector(statusSelector);
+  const searchValue = useSelector(searchValueSelector);
 
   const setActiveIndexHandler = (index) => {
     dispatch(setActiveIndex(index));

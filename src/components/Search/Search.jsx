@@ -1,20 +1,23 @@
 import * as React from 'react';
 import styles from './Search.module.css';
 import { IoIosSearch, IoMdClose } from 'react-icons/io';
-import { AppContext } from '../../App';
 import debounce from 'lodash.debounce';
+import { searchValueSelector } from '../../redux/Selectors/Selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 export const Search = () => {
-  const { searchValue, setSearchValue } = React.useContext(AppContext);
+  const searchValue = useSelector(searchValueSelector);
+  const dispatch = useDispatch();
   const [localInputValue, setLocalInputValue] = React.useState('');
   const inputRef = React.useRef();
   const clearInputHandler = () => {
-    setSearchValue('');
+    dispatch(setSearchValue(''));
     inputRef.current.focus();
   };
 
   const delaySettingSearchValue = React.useCallback(
-    debounce((str) => setSearchValue(str), 500),
+    debounce((str) => dispatch(setSearchValue(str)), 500),
     []
   );
   const setSearchValueHandler = (event) => {
