@@ -2,10 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPizza } from '../../redux/slices/cartSlice';
-import {
-  cartItemsSelector,
-  foundItemSelector,
-} from '../../redux/Selectors/Selectors';
+import { foundItemSelector } from '../../redux/Selectors/Selectors';
 
 export const PizzaCard = ({
   pizzaName,
