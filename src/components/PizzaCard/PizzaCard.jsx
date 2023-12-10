@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPizza } from '../../redux/slices/cartSlice';
 import { foundItemSelector } from '../../redux/Selectors/Selectors';
+import { Link } from 'react-router-dom';
 
 export const PizzaCard = ({
   pizzaName,
@@ -35,8 +36,12 @@ export const PizzaCard = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
-        <h4 className="pizza-block__title">{pizzaName}</h4>
+        <Link to="/pizza">
+          <div>
+            <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
+            <h4 className="pizza-block__title">{pizzaName}</h4>
+          </div>
+        </Link>
         <div className="pizza-block__selector">
           <ul>
             {types.map((type) => {

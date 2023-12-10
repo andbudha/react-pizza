@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.showpizza_box {
+  width: 100%;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image_box {
+  height: 250px;
+  width: 250px;
+  background-color: #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+h2 {
+  margin-bottom: 10px;
+}
+
+.description_and_ingredients {
+  width: 500px;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p {
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
