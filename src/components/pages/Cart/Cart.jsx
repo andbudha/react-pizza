@@ -155,7 +155,7 @@ export const Cart = () => {
 
               <span>Back</span>
             </Link>
-            <div className="button pay-btn">
+            <div className={`button pay-btn ${styles.pay_btn}`}>
               <span>Pay now</span>
             </div>
           </div>

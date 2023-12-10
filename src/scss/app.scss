@@ -341,6 +341,9 @@ body {
             stroke-width: 2;
           }
         }
+        @media (max-width: 760px) {
+          height: 40px;
+        }
       }
 
       .pay-btn {
@@ -352,13 +355,22 @@ body {
         font-weight: 600;
         width: 210px;
         padding: 16px;
+        @media (max-width: 760px) {
+          height: 40px;
+        }
       }
       @media (max-width: 760px) {
         flex-direction: column;
         height: 120px;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
       }
+    }
+    @media (max-width: 760px) {
+      flex-direction: column;
+      height: 160px;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 

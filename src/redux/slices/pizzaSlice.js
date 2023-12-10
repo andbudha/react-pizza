@@ -19,7 +19,6 @@ const slice = createSlice({
       })
       .addCase(setPizzas.rejected, (state, action) => {
         state.status = 'error';
-        console.log('error');
       });
   },
 });

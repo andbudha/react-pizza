@@ -44,3 +44,30 @@
 .close_icon:hover {
   opacity: 1;
 }
+
+@media (max-width: 860px) {
+  .search_input {
+    height: 48px;
+    width: 300px;
+  }
+}
+
+@media (max-width: 760px) {
+  .search_input {
+    height: 40px;
+    width: 220px;
+  }
+}
+
+@media (max-width: 680px) {
+  .search_input {
+    height: 40px;
+    width: 300px;
+  }
+}
+@media (max-width: 400px) {
+  .search_input {
+    height: 40px;
+    width: 300px;
+  }
+}

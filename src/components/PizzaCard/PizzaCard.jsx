@@ -36,7 +36,7 @@ export const PizzaCard = ({
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <Link to="/pizza">
+        <Link to={`/pizza/${pizzaId}`}>
           <div>
             <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
             <h4 className="pizza-block__title">{pizzaName}</h4>
