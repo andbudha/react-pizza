@@ -7,6 +7,7 @@ import { NotFound } from './components/pages/NotFound/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import { Cart } from './components/pages/Cart/Cart';
 import { ShowPizza } from './components/ShowPizza/ShowPizza';
+import React from 'react';
 
 function App() {
   return (
