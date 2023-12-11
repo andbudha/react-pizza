@@ -3,8 +3,8 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { PizzaCard } from '../../PizzaCard/PizzaCard';
 import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
-import { Categories } from '../../Categories/Categories';
-import { Sort, sortList } from '../../Sort/Sort';
+import { Categories } from '../../Categories/Categories.tsx';
+import { Sort, sortList } from '../../Sort/Sort.tsx';
 import { Pagination } from '../../Pagination/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import {

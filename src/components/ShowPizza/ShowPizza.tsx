@@ -2,10 +2,13 @@ import * as React from 'react';
 import styles from './ShowPizza.module.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { ShowPizzaSkeleton } from '../Skeletons/ShowPizzaSkeleton';
 
+type ShowPizza = {
+  imageUrl: string;
+  name: string;
+};
 export const ShowPizza = () => {
-  const [pizza, setPizza] = React.useState();
+  const [pizza, setPizza] = React.useState<ShowPizza>();
   const { id } = useParams();
   console.log(pizza);
   React.useEffect(() => {
@@ -21,7 +24,7 @@ export const ShowPizza = () => {
   }, []);
 
   if (!pizza) {
-    return <ShowPizzaSkeleton />;
+    return <div>Loading...</div>;
   }
   return (
     <div className={styles.showpizza_box}>

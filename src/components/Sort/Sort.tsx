@@ -9,15 +9,15 @@ export const sortList = [
 ];
 export const Sort = ({ sortChoice, setSortChoiceHandler }) => {
   const [openSate, setOpenState] = React.useState(false);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickSetSortChoice = (choice) => {
+  const onClickSetSortChoice = (choice: string) => {
     setSortChoiceHandler(choice);
     setOpenState(false);
   };
 
   React.useEffect(() => {
-    const outsideClickHandler = (e) => {
+    const outsideClickHandler = (e: any) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setOpenState(false);
       }

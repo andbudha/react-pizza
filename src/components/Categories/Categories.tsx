@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+type Categories = {
+  activeIndex: number;
+  setActiveIndexHandler: (index: number) => void;
+};
 export const Categories = ({ activeIndex, setActiveIndexHandler }) => {
   const categories = ['All', 'Meat Lovers', 'Veggie', 'BBQ', 'Spicy'];
 

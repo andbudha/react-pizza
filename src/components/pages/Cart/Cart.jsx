@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from './CartItem/CartItem';
 import { removeAllPizzas } from '../../../redux/slices/cartSlice';
-import { EmpyCart } from './EmptyCart/EmpyCart';
+import { EmpyCart } from './EmptyCart/EmpyCart.tsx';
 import {
   cartItemsSelector,
   totalSumSelector,

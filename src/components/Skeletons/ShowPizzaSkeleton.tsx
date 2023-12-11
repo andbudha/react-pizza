@@ -2,7 +2,7 @@ import * as React from 'react';
 import ContentLoader from 'react-content-loader';
 import styles from './ShowPizzaSkeleton.module.css';
 
-export const ShowPizzaSkeleton = (props) => {
+export const ShowPizzaSkeleton = () => {
   <ContentLoader
     className={styles.showpizza_box}
     speed={2}
@@ -11,7 +11,6 @@ export const ShowPizzaSkeleton = (props) => {
     viewBox="0 0 500 750"
     backgroundColor="#f7f7f7"
     foregroundColor="#fdfaff"
-    {...props}
   >
     <circle cx="231" cy="211" r="174" />
     <rect x="98" y="405" rx="10" ry="10" width="278" height="44" />

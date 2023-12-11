@@ -14,7 +14,7 @@ export const Header = () => {
   const cartItems = useSelector(cartItemsSelector);
   const totalSum = useSelector(totalSumSelector);
   const cartItemAmount = cartItems.reduce(
-    (amount, item) => amount + item.count,
+    (amount: number, item: any) => amount + item.count,
     0
   );
 
