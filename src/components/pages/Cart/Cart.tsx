@@ -1,34 +1,37 @@
-// @flow
 import * as React from 'react';
 import styles from './Cart.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { CartItem } from './CartItem/CartItem';
-import { removeAllPizzas } from '../../../redux/slices/cartSlice';
+import { useSelector } from 'react-redux';
+import { CartItem } from './CartItem/CartItem.tsx';
+import { removeAllPizzas } from '../../../redux/slices/cartSlice.ts';
 import { EmpyCart } from './EmptyCart/EmpyCart.tsx';
 import {
   cartItemsSelector,
   totalSumSelector,
-} from '../../../redux/Selectors/Selectors';
+} from '../../../redux/Selectors/Selectors.js';
+import { AppRootState, useAppDispatch } from '../../../redux/store.tsx';
+import { NewPizza } from '../../../types/types.ts';
 
 export const Cart = () => {
-  const cartItems = useSelector(cartItemsSelector);
-  const totalSum = useSelector(totalSumSelector);
-  const dispatch = useDispatch();
+  const cartItems = useSelector<AppRootState, NewPizza[]>(cartItemsSelector);
+  const totalSum = useSelector<AppRootState, number>(totalSumSelector);
+  const dispatch = useAppDispatch();
+
+  console.log(cartItems);
 
   const cartItemAmount = cartItems.reduce(
-    (amount, item) => amount + item.count,
+    (amount, item) => (item.count ? amount + item.count : amount),
     0
   );
 
   const cartItemList = cartItems.map((item) => (
     <CartItem
-      key={item.pizzaId}
-      id={item.pizzaId}
-      image={item.pizzaImage}
-      name={item.pizzaName}
-      price={item.pizzaPrice}
-      size={item.pizzaSize}
+      key={item.id}
+      id={item.id}
+      imageUrl={item.imageUrl}
+      name={item.name}
+      price={item.price}
+      pizzaSize={item.pizzaSize}
       crustType={item.crustType}
       count={item.count}
     />
@@ -36,7 +39,7 @@ export const Cart = () => {
 
   const clearCartHandler = () => {
     if (window.confirm('Do you want to clear the cart?')) {
-      dispatch(removeAllPizzas());
+      dispatch(removeAllPizzas({}));
     }
   };
 
