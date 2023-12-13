@@ -17,8 +17,8 @@ export const Sort = ({ sortChoice, setSortChoiceHandler }) => {
   };
 
   React.useEffect(() => {
-    const outsideClickHandler = (e: any) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+    const outsideClickHandler = (e: globalThis.MouseEvent) => {
+      if (sortRef.current && !e.composedPath().includes(sortRef.current)) {
         setOpenState(false);
       }
     };
