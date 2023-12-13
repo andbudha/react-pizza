@@ -1,8 +1,11 @@
 import * as React from 'react';
 import styles from './Pagination.module.css';
 import ReactPaginate from 'react-paginate';
-
-export const Pagination = ({ setSelectedPageHandler }) => {
+type Pagination = {
+  setSelectedPageHandler: (pageNumber: number) => void;
+  selectedPage: number;
+};
+export const Pagination = ({ setSelectedPageHandler, selectedPage }) => {
   return (
     <div className={styles.paginator_box}>
       <ReactPaginate
@@ -14,6 +17,7 @@ export const Pagination = ({ setSelectedPageHandler }) => {
         pageCount={3}
         previousLabel="<"
         renderOnZeroPageCount={null}
+        forcePage={selectedPage - 1}
       />
     </div>
   );
