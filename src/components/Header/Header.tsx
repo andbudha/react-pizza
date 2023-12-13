@@ -1,7 +1,7 @@
 import * as React from 'react';
 import logo from '../../assets/img/pizza-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
-import { Search } from '../Search/Search';
+import { Search } from '../Search/Search.tsx';
 import { useSelector } from 'react-redux';
 import {
   cartItemsSelector,
