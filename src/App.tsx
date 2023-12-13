@@ -2,10 +2,10 @@ import './App.css';
 import './scss/app.scss';
 import './scss/_variables.scss';
 import { Header } from './components/Header/Header.tsx';
-import { Home } from './components/pages/Home/Home';
+import { Home } from './components/pages/Home/Home.tsx';
 import { NotFound } from './components/pages/NotFound/NotFound';
 import { Route, Routes } from 'react-router-dom';
-import { Cart } from './components/pages/Cart/Cart';
+import { Cart } from './components/pages/Cart/Cart.tsx';
 import { ShowPizza } from './components/ShowPizza/ShowPizza.tsx';
 import React from 'react';
 
