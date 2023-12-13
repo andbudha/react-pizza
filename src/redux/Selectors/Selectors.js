@@ -5,6 +5,6 @@ export const pizzaSelector = (state) => state.pizzas.pizzas;
 export const statusSelector = (state) => state.pizzas.status;
 export const cartItemsSelector = (state) => state.cart.cartItems;
 export const totalSumSelector = (state) => state.cart.totalSum;
-export const foundItemSelector = (pizzaId) => (state) =>
-  state.cart.cartItems.find((item) => item.pizzaId === pizzaId);
+// export const foundItemSelector = (pizzaId) => (state) =>
+//   state.cart.cartItems.find((item) => item.pizzaId === pizzaId);
 export const searchValueSelector = (state) => state.filters.searchValue;

@@ -1,19 +1,4 @@
-// {
-//     "id": "0",
-//     "imageUrl": "https://dodopizza.azureedge.net/static/Img/Products/f035c7f46c0844069722f2bb3ee9f113_584x584.jpeg",
-//     "name": "Supreme Pizza",
-//     "types": [
-//       0,
-//       1
-//     ],
-//     "sizes": [
-//       26,
-//       30
-//     ],
-//     "price": 11,
-//     "category": 1,
-//     "rating": 4
-//   }
+import { ParsedQs } from 'qs';
 
 export type Pizza = {
   id: string;
@@ -22,6 +7,31 @@ export type Pizza = {
   types: number[];
   sizes: number[];
   price: number;
-  category: number;
-  rating: number;
+  category?: number;
+  rating?: number;
 };
+
+export type NewPizza = {
+  name: string;
+  price: number;
+  imageUrl: string;
+  id: string;
+  crustType: string;
+  pizzaSize: number;
+  count?: number;
+};
+
+export type WindowsLocationParams =
+  | string
+  | ParsedQs
+  | string[]
+  | ParsedQs[]
+  | undefined;
+
+export interface SetPizzaParams {
+  activeIndex: number;
+  finalSortChoice: string | undefined;
+  finalOrder: string | undefined;
+  filter: string;
+  selectedPage: number;
+}
