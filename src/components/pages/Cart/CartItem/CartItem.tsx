@@ -1,48 +1,49 @@
 // @flow
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
 import {
-  addPizza,
+  addSimilarPizza,
   removePizza,
   removeSimilarPizza,
-} from '../../../../redux/slices/cartSlice';
+} from '../../../../redux/slices/cartSlice.ts';
+import { NewPizza } from '../../../../types/types';
+import { useAppDispatch } from '../../../../redux/store.tsx';
 
 export const CartItem = ({
   id,
-  image,
+  imageUrl,
   name,
   price,
-  size,
+  pizzaSize,
   crustType,
   count,
-}) => {
-  const dispatch = useDispatch();
+}: NewPizza) => {
+  const dispatch = useAppDispatch();
   const addSimilarItemHandler = () => {
-    dispatch(addPizza({ pizzaId: id }));
+    dispatch(addSimilarPizza({ id }));
   };
   const removeSimilarItemHandler = () => {
     dispatch(removeSimilarPizza({ id }));
   };
 
   const removeItemHandler = () => {
-    dispatch(removePizza({ pizzaId: id }));
+    dispatch(removePizza({ id }));
   };
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" src={image} alt="Pizza" />
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{name}</h3>
         <p>
-          {size} cm. / {crustType} / {`${price} €`}
+          {pizzaSize} cm. / {crustType} / {`${price} €`}
         </p>
       </div>
       <div className="cart__item-count">
         <button
           className="button button--outline button--circle cart__item-count-minus"
           onClick={removeSimilarItemHandler}
-          disabled={count < 2}
+          disabled={!!count && count < 2}
         >
           <svg
             width="10"
@@ -85,7 +86,7 @@ export const CartItem = ({
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price * count} €</b>
+        <b>{!!count && price * count} €</b>
       </div>
       <div className="cart__item-remove" onClick={removeItemHandler}>
         <div className="button button--outline button--circle">
