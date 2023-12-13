@@ -1,36 +1,42 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { Pizza, SetPizzaParams } from '../../types/types';
 
+const statuses = {
+  loading: 'loading',
+  success: 'success',
+  error: 'error',
+} as const;
 const slice = createSlice({
   name: 'pizzas',
   initialState: {
-    status: '', //loading | success | error
-    pizzas: [],
+    status: statuses,
+    pizzas: [] as Pizza[],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(setPizzas.pending, (state, action) => {
-        state.status = 'loading';
+      .addCase(setPizzas.pending, (state, _) => {
+        state.status.loading = statuses.loading;
       })
       .addCase(setPizzas.fulfilled, (state, action) => {
-        state.status = 'success';
+        state.status.success = statuses.success;
         state.pizzas = action.payload;
       })
-      .addCase(setPizzas.rejected, (state, action) => {
-        state.status = 'error';
+      .addCase(setPizzas.rejected, (state, _) => {
+        state.status.error = statuses.error;
       });
   },
 });
 
-const setPizzas = createAsyncThunk(
+const setPizzas = createAsyncThunk<Pizza[], SetPizzaParams>(
   'pizzas/setPizzas',
   async (
     { activeIndex, finalSortChoice, finalOrder, filter, selectedPage },
-    thinkIPI
+    thunkIPI
   ) => {
-    const { dispatch } = thinkIPI;
-    const res = await axios.get(
+    const { dispatch, rejectWithValue } = thunkIPI;
+    const res = await axios.get<Pizza[]>(
       `https://656897589927836bd975198a.mockapi.io/reactpizza/api/1/items?${
         activeIndex > 0 ? `category=${activeIndex}` : ''
       }&sortBy=${finalSortChoice}&order=${finalOrder}&filter=${filter}&limit=4&p=${selectedPage}`
@@ -38,8 +44,10 @@ const setPizzas = createAsyncThunk(
 
     try {
       const pizzas = res.data;
+
       return pizzas;
     } catch (error) {
+      return rejectWithValue(null);
     } finally {
     }
   }
