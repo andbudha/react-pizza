@@ -1,45 +1,52 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addPizza } from '../../redux/slices/cartSlice';
-import { foundItemSelector } from '../../redux/Selectors/Selectors';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
+import { cartItemsSelector } from '../../redux/Selectors/Selectors';
+import { Link } from 'react-router-dom';
+import { NewPizza, Pizza } from '../../types/types.ts';
+import { AppRootState, useAppDispatch } from '../../redux/store.tsx';
+import { addPizza } from '../../redux/slices/cartSlice.ts';
+
+type PizzaCard = Pizza;
 export const PizzaCard = ({
-  pizzaName,
-  pizzaPrice,
-  pizzaImage,
+  name,
+  price,
+  imageUrl,
   types,
   sizes,
-  pizzaId,
-}) => {
-  const foundItem = useSelector(foundItemSelector(pizzaId));
-  const dispatch = useDispatch();
+  id,
+}: PizzaCard) => {
+  const dispatch = useAppDispatch();
+
+  const cartItems = useSelector<AppRootState, NewPizza[]>(cartItemsSelector);
+  const foundPizza = cartItems.find((pizza) => pizza.id === id);
+  const addedPizzaCount = foundPizza ? foundPizza.count : 0;
 
   const pizzaType = ['thin-crust', 'thick-crust'];
   const [activeType, setActiveType] = useState(0);
   const [pizzaSize, setPizzaSize] = useState(26);
   const crustType = activeType === 0 ? 'thin-crust' : 'thick-crust';
-  const addedCount = foundItem ? foundItem.count : 0;
+
   const addPizzaHandler = () => {
     const newPizza = {
-      pizzaName,
-      pizzaPrice,
-      pizzaImage,
-      pizzaId,
+      name,
+      price,
+      imageUrl,
+      id,
       crustType,
       pizzaSize,
     };
-    dispatch(addPizza(newPizza));
+    dispatch(addPizza({ pizza: newPizza }));
   };
 
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <Link to={`/pizza/${pizzaId}`}>
+        <Link to={`/pizza/${id}`}>
           <div>
-            <img className="pizza-block__image" src={pizzaImage} alt="Pizza" />
-            <h4 className="pizza-block__title">{pizzaName}</h4>
+            <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+            <h4 className="pizza-block__title">{name}</h4>
           </div>
         </Link>
         <div className="pizza-block__selector">
@@ -71,7 +78,7 @@ export const PizzaCard = ({
           </ul>
         </div>
         <div className="pizza-block__bottom" onClick={addPizzaHandler}>
-          <div className="pizza-block__price">{pizzaPrice}€</div>
+          <div className="pizza-block__price">{price}€</div>
           <div className="button button--outline button--add">
             <svg
               width="12"
@@ -86,7 +93,11 @@ export const PizzaCard = ({
               />
             </svg>
             <span>add</span>
-            {addedCount > 0 && <i>{addedCount}</i>}
+            {addedPizzaCount && addedPizzaCount > 0 ? (
+              <i>{addedPizzaCount}</i>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
