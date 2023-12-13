@@ -4,7 +4,10 @@ type Categories = {
   activeIndex: number;
   setActiveIndexHandler: (index: number) => void;
 };
-export const Categories = ({ activeIndex, setActiveIndexHandler }) => {
+export const Categories = ({
+  activeIndex,
+  setActiveIndexHandler,
+}: Categories) => {
   const categories = ['All', 'Meat Lovers', 'Veggie', 'BBQ', 'Spicy'];
 
   return (
