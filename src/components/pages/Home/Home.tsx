@@ -1,22 +1,21 @@
-// @flow
 import * as React from 'react';
 import { useEffect } from 'react';
-import { PizzaCard } from '../../PizzaCard/PizzaCard';
-import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton';
+import { PizzaCard } from '../../PizzaCard/PizzaCard.tsx';
+import { PizzaSkeleton } from '../../Skeletons/PizzaSkeleton.tsx';
 import { Categories } from '../../Categories/Categories.tsx';
 import { Sort, sortList } from '../../Sort/Sort.tsx';
-import { Pagination } from '../../Pagination/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
+import { Pagination } from '../../Pagination/Pagination.tsx';
+import { useSelector } from 'react-redux';
 import {
   setActiveIndex,
   setFilters,
   setSelectedPage,
   setSortChoice,
-} from '../../../redux/slices/filterSlice';
+} from '../../../redux/slices/filterSlice.ts';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { pizzaThunks } from '../../../redux/slices/pizzaSlice';
-import { AxiosError } from '../../AxiosError/AxiosError';
+import { pizzaThunks } from '../../../redux/slices/pizzaSlice.ts';
+import { AxiosError } from '../../AxiosError/AxiosError.js';
 import {
   activeIndexSelector,
   selectedPageSelector,
@@ -24,31 +23,33 @@ import {
   pizzaSelector,
   statusSelector,
   searchValueSelector,
-} from '../../../redux/Selectors/Selectors';
+} from '../../../redux/Selectors/Selectors.js';
+import { AppRootState, useAppDispatch } from '../../../redux/store.tsx';
+import { Pizza } from '../../../types/types.ts';
 
 export const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const activeIndex = useSelector(activeIndexSelector);
-  const sortChoice = useSelector(sortChoiceSelector);
-  const selectedPage = useSelector(selectedPageSelector);
-  const pizzas = useSelector(pizzaSelector);
-  const status = useSelector(statusSelector);
-  const searchValue = useSelector(searchValueSelector);
+  const activeIndex = useSelector<AppRootState, number>(activeIndexSelector);
+  const sortChoice = useSelector<AppRootState, string>(sortChoiceSelector);
+  const selectedPage = useSelector<AppRootState, number>(selectedPageSelector);
+  const pizzas = useSelector<AppRootState, Pizza[]>(pizzaSelector);
+  const status = useSelector<AppRootState, string>(statusSelector);
+  const searchValue = useSelector<AppRootState, string>(searchValueSelector);
 
-  const setActiveIndexHandler = (index) => {
-    dispatch(setActiveIndex(index));
+  const setActiveIndexHandler = (index: number) => {
+    dispatch(setActiveIndex({ index }));
   };
 
-  const setSortChoiceHandler = (choice) => {
-    dispatch(setSortChoice(choice));
+  const setSortChoiceHandler = (choice: string) => {
+    dispatch(setSortChoice({ choice }));
   };
 
-  const setSelectedPageHandler = (pageNumber) => {
-    dispatch(setSelectedPage(pageNumber));
+  const setSelectedPageHandler = (pageNumber: number) => {
+    dispatch(setSelectedPage({ pageNumber }));
   };
 
   const getPizzas = async () => {
@@ -98,13 +99,15 @@ export const Home = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
+      console.log(params);
       const index = sortList.findIndex((choice) => {
         return choice === params.sortChoice;
       });
       if (index !== -1) {
         dispatch(
           setFilters({
-            ...params,
+            activeIndex: params.activeIndex,
+            selectedPage: params.selectedPage,
             sortChoice: sortList[index],
           })
         );
@@ -129,12 +132,12 @@ export const Home = () => {
     return (
       <PizzaCard
         key={pizza.id}
-        pizzaName={pizza.name}
-        pizzaImage={pizza.imageUrl}
-        pizzaPrice={pizza.price}
+        name={pizza.name}
+        imageUrl={pizza.imageUrl}
+        price={pizza.price}
         sizes={pizza.sizes}
         types={pizza.types}
-        pizzaId={pizza.id}
+        id={pizza.id}
       />
     );
   });
@@ -157,7 +160,10 @@ export const Home = () => {
       <div className="content__items">
         {status === 'loading' ? pizzaSkeletons : pizzaList}
       </div>
-      <Pagination setSelectedPageHandler={setSelectedPageHandler} />
+      <Pagination
+        setSelectedPageHandler={setSelectedPageHandler}
+        selectedPage={selectedPage}
+      />
     </div>
   );
 };
