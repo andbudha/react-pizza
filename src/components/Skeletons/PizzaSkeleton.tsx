@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-export const PizzaSkeleton = (props) => (
+export const PizzaSkeleton = () => (
   <ContentLoader
     className="pizza-block"
     speed={2}
@@ -10,7 +10,6 @@ export const PizzaSkeleton = (props) => (
     viewBox="0 0 280 466"
     backgroundColor="#f7f7f7"
     foregroundColor="#fdfaff"
-    {...props}
   >
     <circle cx="137" cy="138" r="110" />
     <rect x="0" y="266" rx="10" ry="10" width="278" height="27" />
