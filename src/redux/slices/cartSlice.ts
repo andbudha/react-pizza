@@ -1,17 +1,18 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NewPizza } from '../../types/types';
 import { getCartItems } from '../../utils/getLocalStorageItems.tsx';
+import { localStrageTotalSum } from '../../utils/localStrageTotalSum.tsx';
 
 const slice = createSlice({
   name: 'cart',
   initialState: {
-    cartItems: getCartItems(),
-    totalSum: 0 as number,
+    cartItems: getCartItems() as NewPizza[],
+    totalSum: localStrageTotalSum() as number,
   },
   reducers: {
     addPizza: (state, action: PayloadAction<{ pizza: NewPizza }>) => {
       const foundItem = state.cartItems.find(
-        (item) => item.id === action.payload.pizza.id
+        (item: NewPizza) => item.id === action.payload.pizza.id
       );
       if (foundItem && foundItem.count) {
         foundItem.count++;
@@ -19,13 +20,14 @@ const slice = createSlice({
         state.cartItems.unshift({ ...action.payload.pizza, count: 1 });
       }
       state.totalSum = state.cartItems.reduce(
-        (sum, item) => (item.count ? sum + item.count * item.price : 0),
+        (sum: number, item: NewPizza) =>
+          item.count ? sum + item.count * item.price : 0,
         0
       );
     },
     addSimilarPizza: (state, action: PayloadAction<{ id: string }>) => {
       const foundItem = state.cartItems.find(
-        (item) => item.id === action.payload.id
+        (item: NewPizza) => item.id === action.payload.id
       );
       if (foundItem && foundItem.count) {
         foundItem.count++;
