@@ -17,8 +17,6 @@ export const Cart = () => {
   const totalSum = useSelector<AppRootState, number>(totalSumSelector);
   const dispatch = useAppDispatch();
 
-  console.log(cartItems);
-
   const cartItemAmount = cartItems.reduce(
     (amount, item) => (item.count ? amount + item.count : amount),
     0

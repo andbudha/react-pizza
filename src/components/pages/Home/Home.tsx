@@ -40,9 +40,9 @@ export const Home = () => {
   const status = useSelector<AppRootState, string>(statusSelector);
   const searchValue = useSelector<AppRootState, string>(searchValueSelector);
 
-  const setActiveIndexHandler = (index: number) => {
+  const setActiveIndexHandler = React.useCallback((index: number) => {
     dispatch(setActiveIndex({ index }));
-  };
+  }, []);
 
   const setSortChoiceHandler = (choice: string) => {
     dispatch(setSortChoice({ choice }));
@@ -99,7 +99,6 @@ export const Home = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      console.log(params);
       const index = sortList.findIndex((choice) => {
         return choice === params.sortChoice;
       });
@@ -144,6 +143,7 @@ export const Home = () => {
   if (status === 'error') {
     return <AxiosError />;
   }
+
   return (
     <div className="container">
       <div className="content__top">
