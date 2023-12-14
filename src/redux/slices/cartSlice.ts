@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NewPizza } from '../../types/types';
+import { getCartItems } from '../../utils/getLocalStorageItems.tsx';
 
 const slice = createSlice({
   name: 'cart',
   initialState: {
-    cartItems: [] as NewPizza[],
+    cartItems: getCartItems(),
     totalSum: 0 as number,
   },
   reducers: {
