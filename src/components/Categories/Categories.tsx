@@ -4,11 +4,12 @@ type Categories = {
   activeIndex: number;
   setActiveIndexHandler: (index: number) => void;
 };
-export const Categories = ({
+export const Categories: React.FC<Categories> = ({
   activeIndex,
   setActiveIndexHandler,
-}: Categories) => {
+}) => {
   const categories = ['All', 'Meat Lovers', 'Veggie', 'BBQ', 'Spicy'];
+  console.log('Categories rerendered!');
 
   return (
     <div className="categories">
