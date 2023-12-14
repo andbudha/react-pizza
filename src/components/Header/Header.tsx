@@ -10,13 +10,21 @@ import {
 
 export const Header = () => {
   const uselocation = useLocation();
-
+  const [mounted, setMounted] = React.useState(false);
   const cartItems = useSelector(cartItemsSelector);
   const totalSum = useSelector(totalSumSelector);
   const cartItemAmount = cartItems.reduce(
     (amount: number, item: any) => amount + item.count,
     0
   );
+
+  React.useEffect(() => {
+    if (mounted) {
+      const jsonCart = JSON.stringify(cartItems);
+      localStorage.setItem('cart', jsonCart);
+    }
+    setMounted(true);
+  }, [cartItems]);
 
   return (
     <div className="header">
