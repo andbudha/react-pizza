@@ -41,7 +41,7 @@ export const Cart = () => {
     }
   };
 
-  if (!totalSum) {
+  if (!cartItems.length) {
     return <EmpyCart />;
   }
   return (
